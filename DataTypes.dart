@@ -1,4 +1,5 @@
 void main() {
+  //! There is NO native tpes
   int i = 5;
   double d = 3.14;
   String name = "Lars";
@@ -13,7 +14,8 @@ void main() {
   num p = 3.14;
   print(p.runtimeType);
 
-  var x = 5;
+  //* Implicitly specified type (one time type inference)
+  var x = 5; //> More like 'let' of JavaScript
   print("$x, ${x.runtimeType}");
 
   var list = [1, 2, 3];
@@ -25,6 +27,6 @@ void main() {
   var set = {1, 1, 1, 2, 1, 1, 2, 2, 3, 4, 5, 3};
   print(set);
 
-  var bi = BigInt.parse(123534535345435464654645653656536563456534645365463456);
+  var bi = BigInt.parse('1235345353454354646546456536565365634565346453654634');
   print(bi);
 }
