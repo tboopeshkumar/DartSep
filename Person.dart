@@ -11,22 +11,22 @@ class Person {
   int id = 0;
   String name = "";
 
-  //! constructor : method name is class name
+  //! [1] constructor : method name is class name
   // Person(int id, String n) {
   //   this.id = id;
   //   name = n;
   // }
 
-  //! constructor : with members initialization
+  //! [2] constructor : [member initializer] with members initialization
   // Person(int id, String name): this.id = id, this.name = name;
 
-  //! constructor : parameter assigned to fields automatically
+  //! [3] constructor : [Field initializer] parameter assigned to fields automatically
   // Person(this.id, this.name); // Typescript can do this.
 
-  //! constructor : can have optional / named params
+  //! [3] constructor : can have optional / named params
   Person(this.id, {this.name = ""});
 
-  //! construtor : named
+  //! [4] construtor : named
   Person.fromString(String str) {
     print("Got $str");
   }
