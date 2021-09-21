@@ -52,8 +52,7 @@ class Account {
   void display() => print("$accountNumber: [$holdersName] $_balance");
 
   void printTransactions() {
-    print("transactions of type ${transactions.runtimeType}");
-    
+   
     for(var txn in transactions) {
       
       print("${txn.date}: ${txn.description} ${txn.amount} ${txn.type}");
@@ -62,6 +61,13 @@ class Account {
 
   //* GETTTERS & SETTERS
   double get balance => _balance; //! Getter for private variable
+
+  operator > (Account rhs) => this._balance > rhs.balance;
+  operator < (Account rhs) => this._balance < rhs._balance;
+  operator + (double amount) {
+    this.deposit("Deposit", amount);
+    return this;
+  }
 }
 
 class SavingsAccount extends Account{
@@ -115,7 +121,8 @@ void main() {
   a.holdersName = "Lars The Great";
   a.display(); 
   a.printTransactions();
-
-
+  a = a+1000;
+  a.printTransactions();
+  a.display();
 
 }
