@@ -9,7 +9,6 @@
 //% Java and C# ->single inheritance , multiple interafaces [default interfaces]
 //* Dart -> single inheritance, multiple interfaces, multiple mixin
 
-import 'Account.dart';
 
 class Human {
   void whoAmI() {

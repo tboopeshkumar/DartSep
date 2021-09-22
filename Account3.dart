@@ -22,7 +22,7 @@ class Transaction {
 //      |
 //      +-- FlexiDeposit -> One time deposit, small withdrwal
 
-
+typedef void BalaceUpdateCallback(double newBalance, double oldBalance, String desc);
 class Account {
   //! F I E L D S
   
@@ -30,6 +30,7 @@ class Account {
   late String holdersName; //* publicly available as read-write "property"
   late double _balance; //! Private to the package
   var transactions = [];
+  BalaceUpdateCallback? balaceUpdateCallback = null;
 
   //~ S T A T I C
   static int _nextAccountNumber = 100; //~ class level var (only 1 shared copy amongst ALL objects )
@@ -42,15 +43,26 @@ class Account {
   double deposit(String description, double amount) {
     var txn = Transaction(description, amount, "CR");
     transactions.add(txn);
+
+    if(this.balaceUpdateCallback != null) {
+      this.balaceUpdateCallback!(_balance, balance + amount, "CR");
+    }
     return _balance += amount;
   }
   double withdraw(String description, double amount) {
     var txn = Transaction(description, amount, "DR");
     transactions.add(txn);
+   
+    if(this.balaceUpdateCallback != null) {
+      this.balaceUpdateCallback!(_balance, _balance - amount, "DR");
+    }
     return _balance -= amount;
   } 
   void display() => print("$accountNumber: [$holdersName] $_balance");
 
+  void notifyBalanceUpdate(BalaceUpdateCallback callback) {
+    this.balaceUpdateCallback = callback;
+  }
   void printTransactions() {
    
     for(var txn in transactions) {
@@ -116,6 +128,9 @@ void main() {
   
   print(Account.nextAccountNumber);
   var a = Account("Lars Bak", 10000);
+  a.notifyBalanceUpdate((newBalance, oldBalance, desc) {
+    print("NewBalance: $newBalance, OldBalance: $oldBalance, Type: $desc");
+  });
   a.deposit("savings", 100);
   a.withdraw("expenses", 200);
   a.holdersName = "Lars The Great";
